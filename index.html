@@ -1,833 +1,621 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kazeta - Just Play</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
-            color: #ffffff;
-            overflow-x: hidden;
-            padding-top: 0;
-            margin: 0;
-            font-size: 16px; /* Base font size */
-        }
-
-        /* Responsive base font scaling for large screens */
-        @media (min-width: 1400px) {
-            body {
-                font-size: 18px;
-            }
-        }
-
-        @media (min-width: 1800px) {
-            body {
-                font-size: 20px;
-            }
-        }
-
-        @media (min-width: 2200px) {
-            body {
-                font-size: 22px;
-            }
-        }
-
-        @media (min-width: 2560px) {
-            body {
-                font-size: 24px;
-            }
-        }
-
-        .section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 2rem;
-            position: relative;
-        }
-
-        /* Responsive section padding for large screens */
-        @media (min-width: 1400px) {
-            .section {
-                padding: 3rem;
-            }
-        }
-
-        @media (min-width: 1800px) {
-            .section {
-                padding: 4rem;
-            }
-        }
-
-        @media (min-width: 2200px) {
-            .section {
-                padding: 5rem;
-            }
-        }
-
-        @media (min-width: 2560px) {
-            .section {
-                padding: 6rem;
-            }
-        }
-
-        /* Base Typography Styles - Must come before media queries */
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            font-weight: 900;
-            line-height: 1.2;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            font-weight: 800;
-            line-height: 1.2;
-        }
-
-        p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 1rem;
-        }
-
-        .feature-list {
-            list-style: none;
-            margin-top: 1.5rem;
-        }
-
-        .feature-list li {
-            padding: 0.5rem 0;
-            font-size: 1.1rem;
-            opacity: 0.9;
-            position: relative;
-            padding-left: 2rem;
-        }
-
-        .feature-list li::before {
-            content: "✦";
-            position: absolute;
-            left: 0;
-            color: #ffffff;
-            font-weight: bold;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-            width: 100%;
-            z-index: 2;
-            position: relative;
-        }
-
-        /* Responsive scaling for large screens */
-        @media (min-width: 1400px) {
-            .container {
-                max-width: 1400px;
-                gap: 5rem;
-            }
-
-            h1 { font-size: 4rem !important; }
-            h2 { font-size: 3.5rem !important; }
-            p { font-size: 1.4rem !important; }
-            .feature-list li { font-size: 1.3rem !important; }
-        }
-
-        @media (min-width: 1800px) {
-            .container {
-                max-width: 1600px;
-                gap: 7rem;
-            }
-
-            h1 { font-size: 5rem !important; }
-            h2 { font-size: 4.5rem !important; }
-            p { font-size: 1.6rem !important; }
-            .feature-list li { font-size: 1.5rem !important; }
-        }
-
-        @media (min-width: 2200px) {
-            .container {
-                max-width: 1800px;
-                gap: 10rem;
-            }
-
-            h1 { font-size: 6rem !important; }
-            h2 { font-size: 5.5rem !important; }
-            p { font-size: 1.8rem !important; }
-            .feature-list li { font-size: 1.7rem !important; }
-        }
-
-        @media (min-width: 2560px) {
-            .container {
-                max-width: 2000px;
-                gap: 12rem;
-            }
-
-            h1 { font-size: 7rem !important; }
-            h2 { font-size: 6.5rem !important; }
-            p { font-size: 2rem !important; }
-            .feature-list li { font-size: 1.9rem !important; }
-        }
-
-        .hero {
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            margin-top: 0;
-            padding-top: 80px;
-            min-height: 100vh;
-        }
-
-
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(1deg); }
-        }
-
-        .logo {
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem 2rem;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .cta-button {
-            background: linear-gradient(45deg, #2196f3, #21cbf3);
-            color: white;
-            padding: 1rem 3rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            margin-top: 3rem;
-            margin-bottom: 2rem;
-        }
-
-        /* Responsive CTA button scaling for large screens */
-        @media (min-width: 1400px) {
-            .cta-button {
-                padding: 1.2rem 3.5rem;
-                font-size: 1.3rem !important;
-            }
-        }
-
-        @media (min-width: 1800px) {
-            .cta-button {
-                padding: 1.4rem 4rem;
-                font-size: 1.4rem !important;
-            }
-        }
-
-        @media (min-width: 2200px) {
-            .cta-button {
-                padding: 1.6rem 4.5rem;
-                font-size: 1.5rem !important;
-            }
-        }
-
-        @media (min-width: 2560px) {
-            .cta-button {
-                padding: 1.8rem 5rem;
-                font-size: 1.6rem !important;
-            }
-        }
-
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-
-        .section:nth-child(3) {
-            background: linear-gradient(135deg, #c2185b 0%, #7b1fa2 100%);
-        }
-
-        .section:nth-child(4) {
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-        }
-
-        .section:nth-child(5) {
-            background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
-        }
-
-        .section:nth-child(6) {
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-        }
-
-        .section:nth-child(7) {
-            background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%);
-        }
-
-        .section:nth-child(8) {
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-        }
-
-        .section:nth-child(9) {
-            background: linear-gradient(135deg, #512da8 0%, #4527a0 100%);
-        }
-
-        .content {
-            animation: slideIn 0.8s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .reverse .container {
-            direction: rtl;
-        }
-
-        .reverse .content {
-            direction: ltr;
-            animation: slideInRight 0.8s ease-out;
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .image-placeholder {
-            width: 100%;
-            height: 400px;
-            background: transparent;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            opacity: 1;
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        /* Responsive image placeholder scaling for large screens */
-        @media (min-width: 1400px) {
-            .image-placeholder {
-                height: 450px;
-                border-radius: 25px;
-            }
-        }
-
-        @media (min-width: 1800px) {
-            .image-placeholder {
-                height: 500px;
-                border-radius: 30px;
-            }
-        }
-
-        @media (min-width: 2200px) {
-            .image-placeholder {
-                height: 550px;
-                border-radius: 35px;
-            }
-        }
-
-        @media (min-width: 2560px) {
-            .image-placeholder {
-                height: 600px;
-                border-radius: 40px;
-            }
-        }
-
-        .image-placeholder:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-
-        .image-placeholder img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            filter: none;
-            mix-blend-mode: normal;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .section {
-                min-height: auto;
-                padding: 3rem 1.5rem;
-            }
-
-            /* Make hero sections taller on mobile for better navbar spacing */
-            .hero {
-                min-height: 80vh;
-                padding-top: 80px;
-            }
-
-            h1 { font-size: 2.5rem; }
-            h2 { font-size: 2rem; }
-            
-            .logo {
-                font-size: 3rem;
-                width: 300px;
-                height: 100px;
-            }
-
-            .image-placeholder {
-                order: -1;
-            }
-
-            .content {
-                order: 1;
-            }
-
-            /* Fix text alignment for mobile - keep headings centered but left-align paragraphs and lists */
-            .content h1,
-            .content h2 {
-                text-align: center;
-            }
-
-            /* Keep hero sections centered on mobile, left-align other content */
-            .hero .content p {
-                text-align: center;
-            }
-
-            .content p:not(.hero .content p),
-            .content .feature-list {
-                text-align: left;
-            }
-
-            /* Fix bullet point positioning for mobile */
-            .feature-list li {
-                padding-left: 2.5rem;
-            }
-
-            .feature-list li::before {
-                left: 0.5rem;
-            }
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-            font-size: 2rem;
-        }
-
-        /* Responsive scroll indicator scaling for large screens */
-        @media (min-width: 1400px) {
-            .scroll-indicator {
-                font-size: 2.5rem;
-            }
-        }
-
-        @media (min-width: 1800px) {
-            .scroll-indicator {
-                font-size: 3rem;
-            }
-        }
-
-        @media (min-width: 2200px) {
-            .scroll-indicator {
-                font-size: 3.5rem;
-            }
-        }
-
-        @media (min-width: 2560px) {
-            .scroll-indicator {
-                font-size: 4rem;
-            }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-10px); }
-            60% { transform: translateX(-50%) translateY(-5px); }
-        }
-
-        .glitch {
-            position: relative;
-        }
-
-        .glitch::before,
-        .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .glitch::before {
-            animation: glitch-1 2s infinite;
-            color: #ff00ff;
-            z-index: -1;
-        }
-
-        .glitch::after {
-            animation: glitch-2 2s infinite;
-            color: #00ffff;
-            z-index: -2;
-        }
-
-        @keyframes glitch-1 {
-            0%, 100% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-        }
-
-        @keyframes glitch-2 {
-            0%, 100% { transform: translate(0); }
-            20% { transform: translate(2px, 2px); }
-            40% { transform: translate(2px, -2px); }
-            60% { transform: translate(-2px, 2px); }
-            80% { transform: translate(-2px, -2px); }
-        }
-
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(26, 26, 26, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 1000;
-            padding: 1rem 2rem;
-            margin: 0;
-            padding-top: 1rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Responsive navbar scaling for large screens */
-        @media (min-width: 1400px) {
-            .nav-container {
-                max-width: 1400px;
-            }
-        }
-
-        @media (min-width: 1800px) {
-            .nav-container {
-                max-width: 1600px;
-            }
-        }
-
-        @media (min-width: 2200px) {
-            .nav-container {
-                max-width: 1800px;
-            }
-        }
-
-        @media (min-width: 2560px) {
-            .nav-container {
-                max-width: 2000px;
-            }
-        }
-
-        .hero-logo {
-            width: 50%;
-            min-width: 350px;
-        }
-
-        .nav-logo {
-            width: 12rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-        }
-
-        /* Responsive navbar font scaling for large screens */
-        @media (min-width: 1400px) {
-            .nav-links a {
-                font-size: 1.1rem !important;
-                padding: 0.6rem 1.2rem;
-            }
-
-            .nav-logo {
-                width: 14rem;
-            }
-        }
-
-        @media (min-width: 1800px) {
-            .nav-links a {
-                font-size: 1.2rem !important;
-                padding: 0.7rem 1.4rem;
-            }
-
-            .nav-logo {
-                width: 16rem;
-            }
-        }
-
-        @media (min-width: 2200px) {
-            .nav-links a {
-                font-size: 1.3rem !important;
-                padding: 0.8rem 1.6rem;
-            }
-
-            .nav-logo {
-                width: 17rem;
-            }
-        }
-
-        @media (min-width: 2560px) {
-            .nav-links a {
-                font-size: 1.4rem !important;
-                padding: 0.9rem 1.8rem;
-            }
-
-            .nav-logo {
-                width: 18rem;
-            }
-        }
-
-        .nav-links a:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 1rem;
-            }
-
-            .nav-container {
-                flex-direction: column;
-                gap: 0rem;
-            }
-
-            .nav-logo {
-                display: none;
-            }
-
-            .nav-links {
-                gap: 0.0rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kazeta – Just Play</title>
+
+  <!-- Primary SEO -->
+  <meta name="description" content="Kazeta is a console-style OS for modern PCs: insert cart, power on, play. Zero setup, no DRM, just games." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://kazeta.org/" />
+
+  <!-- Theming -->
+  <meta name="theme-color" content="#0f0f0f" />
+
+  <!-- Open Graph (Discord, Slack, FB, etc.) -->
+  <meta property="og:site_name" content="Kazeta" />
+  <meta property="og:title" content="Kazeta – Just Play" />
+  <meta property="og:description" content="Console gaming energy from the '90s, on modern PC hardware. Insert cart, power on, play." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kazeta.org/" />
+  <!-- Use an absolute URL for rich previews -->
+  <meta property="og:image" content="https://kazeta.org/images/og-cover.png" />
+  <meta property="og:image:alt" content="Kazeta: console-style OS — logo and hero art" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kazeta – Just Play" />
+  <meta name="twitter:description" content="Console gaming energy from the '90s, on modern PC hardware." />
+  <meta name="twitter:image" content="https://kazeta.org/images/og-cover.png" />
+  <meta name="twitter:domain" content="kazeta.org" />
+
+  <!-- Favicons -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Webfont (Inter) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Optional structured data for richer SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Kazeta",
+    "applicationCategory": "SystemSoftware",
+    "operatingSystem": "Linux",
+    "description": "Kazeta is a console-style OS for modern PCs: insert cart, power on, play.",
+    "url": "https://kazeta.org/",
+    "image": "https://kazeta.org/images/og-cover.png",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kazeta Project"
+    }
+  }
+  </script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: #ffffff;
+      overflow-x: hidden;
+      padding-top: 0;
+      margin: 0;
+      font-size: 16px; /* Base font size */
+      background: #0f0f0f;
+    }
+
+    /* Respect users who prefer less motion */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+
+    /* Responsive base font scaling for large screens */
+    @media (min-width: 1400px) { body { font-size: 18px; } }
+    @media (min-width: 1800px) { body { font-size: 20px; } }
+    @media (min-width: 2200px) { body { font-size: 22px; } }
+    @media (min-width: 2560px) { body { font-size: 24px; } }
+
+    .section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    /* Responsive section padding for large screens */
+    @media (min-width: 1400px) { .section { padding: 3rem; } }
+    @media (min-width: 1800px) { .section { padding: 4rem; } }
+    @media (min-width: 2200px) { .section { padding: 5rem; } }
+    @media (min-width: 2560px) { .section { padding: 6rem; } }
+
+    /* Base Typography Styles - Must come before media queries */
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 1rem;
+    }
+
+    .feature-list { list-style: none; margin-top: 1.5rem; }
+    .feature-list li {
+      padding: 0.5rem 0;
+      font-size: 1.1rem;
+      opacity: 0.9;
+      position: relative;
+      padding-left: 2rem;
+    }
+    .feature-list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      width: 100%;
+      z-index: 2;
+      position: relative;
+    }
+
+    /* Responsive scaling for large screens */
+    @media (min-width: 1400px) {
+      .container { max-width: 1400px; gap: 5rem; }
+      h1 { font-size: 4rem !important; }
+      h2 { font-size: 3.5rem !important; }
+      p { font-size: 1.4rem !important; }
+      .feature-list li { font-size: 1.3rem !important; }
+    }
+    @media (min-width: 1800px) {
+      .container { max-width: 1600px; gap: 7rem; }
+      h1 { font-size: 5rem !important; }
+      h2 { font-size: 4.5rem !important; }
+      p { font-size: 1.6rem !important; }
+      .feature-list li { font-size: 1.5rem !important; }
+    }
+    @media (min-width: 2200px) {
+      .container { max-width: 1800px; gap: 10rem; }
+      h1 { font-size: 6rem !important; }
+      h2 { font-size: 5.5rem !important; }
+      p { font-size: 1.8rem !important; }
+      .feature-list li { font-size: 1.7rem !important; }
+    }
+    @media (min-width: 2560px) {
+      .container { max-width: 2000px; gap: 12rem; }
+      h1 { font-size: 7rem !important; }
+      h2 { font-size: 6.5rem !important; }
+      p { font-size: 2rem !important; }
+      .feature-list li { font-size: 1.9rem !important; }
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      margin-top: 0;
+      padding-top: 80px;
+      min-height: 100vh;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(1deg); }
+    }
+
+    .logo {
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 2rem;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .cta-button {
+      background: linear-gradient(45deg, #2196f3, #21cbf3);
+      color: white;
+      padding: 1rem 3rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      margin-top: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Responsive CTA button scaling for large screens */
+    @media (min-width: 1400px) {
+      .cta-button { padding: 1.2rem 3.5rem; font-size: 1.3rem !important; }
+    }
+    @media (min-width: 1800px) {
+      .cta-button { padding: 1.4rem 4rem; font-size: 1.4rem !important; }
+    }
+    @media (min-width: 2200px) {
+      .cta-button { padding: 1.6rem 4.5rem; font-size: 1.5rem !important; }
+    }
+    @media (min-width: 2560px) {
+      .cta-button { padding: 1.8rem 5rem; font-size: 1.6rem !important; }
+    }
+
+    .cta-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .section:nth-child(3) { background: linear-gradient(135deg, #c2185b 0%, #7b1fa2 100%); }
+    .section:nth-child(4) { background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%); }
+    .section:nth-child(5) { background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%); }
+    .section:nth-child(6) { background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%); }
+    .section:nth-child(7) { background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%); }
+    .section:nth-child(8) { background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%); }
+    .section:nth-child(9) { background: linear-gradient(135deg, #512da8 0%, #4527a0 100%); }
+
+    .content { animation: slideIn 0.8s ease-out; }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .reverse .container { direction: rtl; }
+    .reverse .content {
+      direction: ltr;
+      animation: slideInRight 0.8s ease-out;
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 400px;
+      background: transparent;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      opacity: 1;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    /* Responsive image placeholder scaling for large screens */
+    @media (min-width: 1400px) { .image-placeholder { height: 450px; border-radius: 25px; } }
+    @media (min-width: 1800px) { .image-placeholder { height: 500px; border-radius: 30px; } }
+    @media (min-width: 2200px) { .image-placeholder { height: 550px; border-radius: 35px; } }
+    @media (min-width: 2560px) { .image-placeholder { height: 600px; border-radius: 40px; } }
+
+    .image-placeholder:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .image-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      filter: none;
+      mix-blend-mode: normal;
+      /* Provide a ratio to reduce CLS even before the image loads */
+      aspect-ratio: 3 / 2;
+    }
+
+    @media (max-width: 768px) {
+      .container { grid-template-columns: 1fr; gap: 2rem; }
+      .section { min-height: auto; padding: 3rem 1.5rem; }
+      .hero { min-height: 80vh; padding-top: 80px; }
+      h1 { font-size: 2.5rem; }
+      h2 { font-size: 2rem; }
+      .logo { font-size: 3rem; width: 300px; height: 100px; }
+      .image-placeholder { order: -1; }
+      .content { order: 1; }
+      .content h1, .content h2 { text-align: center; }
+      .hero .content p { text-align: center; }
+      .content p:not(.hero .content p), .content .feature-list { text-align: left; }
+      .feature-list li { padding-left: 2.5rem; }
+      .feature-list li::before { left: 0.5rem; }
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+      font-size: 2rem;
+    }
+
+    /* Responsive scroll indicator scaling for large screens */
+    @media (min-width: 1400px) { .scroll-indicator { font-size: 2.5rem; } }
+    @media (min-width: 1800px) { .scroll-indicator { font-size: 3rem; } }
+    @media (min-width: 2200px) { .scroll-indicator { font-size: 3.5rem; } }
+    @media (min-width: 2560px) { .scroll-indicator { font-size: 4rem; } }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-10px); }
+      60% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    .glitch { position: relative; }
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+    .glitch::before { animation: glitch-1 2s infinite; color: #ff00ff; z-index: -1; }
+    .glitch::after  { animation: glitch-2 2s infinite; color: #00ffff; z-index: -2; }
+
+    @keyframes glitch-1 {
+      0%, 100% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(-2px, -2px); }
+      60% { transform: translate(2px, 2px); }
+      80% { transform: translate(2px, -2px); }
+    }
+    @keyframes glitch-2 {
+      0%, 100% { transform: translate(0); }
+      20% { transform: translate(2px, 2px); }
+      40% { transform: translate(2px, -2px); }
+      60% { transform: translate(-2px, 2px); }
+      80% { transform: translate(-2px, -2px); }
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(26, 26, 26, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 1000;
+      padding: 1rem 2rem;
+      margin: 0;
+      padding-top: 1rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    /* Responsive navbar scaling for large screens */
+    @media (min-width: 1400px) { .nav-container { max-width: 1400px; } }
+    @media (min-width: 1800px) { .nav-container { max-width: 1600px; } }
+    @media (min-width: 2200px) { .nav-container { max-width: 1800px; } }
+    @media (min-width: 2560px) { .nav-container { max-width: 2000px; } }
+
+    .hero-logo { width: 50%; min-width: 350px; }
+    .nav-logo  { width: 12rem; }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: #ffffff; text-decoration: none; font-weight: 500;
+      transition: all 0.3s ease; padding: 0.5rem 1rem; border-radius: 6px;
+    }
+
+    /* Responsive navbar font scaling for large screens */
+    @media (min-width: 1400px) {
+      .nav-links a { font-size: 1.1rem !important; padding: 0.6rem 1.2rem; }
+      .nav-logo { width: 14rem; }
+    }
+    @media (min-width: 1800px) {
+      .nav-links a { font-size: 1.2rem !important; padding: 0.7rem 1.4rem; }
+      .nav-logo { width: 16rem; }
+    }
+    @media (min-width: 2200px) {
+      .nav-links a { font-size: 1.3rem !important; padding: 0.8rem 1.6rem; }
+      .nav-logo { width: 17rem; }
+    }
+    @media (min-width: 2560px) {
+      .nav-links a { font-size: 1.4rem !important; padding: 0.9rem 1.8rem; }
+      .nav-logo { width: 18rem; }
+    }
+
+    .nav-links a:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-2px); }
+
+    @media (max-width: 768px) {
+      .navbar { padding: 1rem; }
+      .nav-container { flex-direction: column; gap: 0rem; }
+      .nav-logo { display: none; }
+      .nav-links { gap: 0.0rem; }
+    }
+  </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#"><img class="nav-logo" src="images/logo.svg"></a>
-            <ul class="nav-links">
-                <li><a href="#download">Download</a></li>
-                <li><a href="https://discord.gg/JFscNAdzHW">Discord</a></li>
-                <li><a href="https://github.com/kazetaos/kazeta/wiki">Docs</a></li>
-                <li><a href="https://github.com/kazetaos/">GitHub</a></li>
-            </ul>
-        </div>
-    </nav>
+  <nav class="navbar" aria-label="Main">
+    <div class="nav-container">
+      <a href="#" aria-label="Kazeta home">
+        <img class="nav-logo" src="images/logo.svg" alt="Kazeta logo" width="224" height="64" decoding="async" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="#download">Download</a></li>
+        <li><a href="https://discord.gg/JFscNAdzHW" target="_blank" rel="noopener noreferrer">Discord</a></li>
+        <li><a href="https://github.com/kazetaos/kazeta/wiki" target="_blank" rel="noopener noreferrer">Docs</a></li>
+        <li><a href="https://github.com/kazetaos/" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
 
-    <section class="section hero">
-        <div class="container" style="grid-template-columns: 1fr; text-align: center;">
-            <div class="content">
-		<img class="hero-logo" src="images/logo.svg">
-                <p style="margin-left:20%; margin-right:20%">An operating system that brings the console gaming experience of the '90s to modern PC hardware and games: insert cart, power on, play.</p>
-                <a href="#learn-more" class="cta-button">Explore Kazeta</a>
-            </div>
-        </div>
-        <div class="scroll-indicator">↓</div>
-    </section>
+  <section class="section hero">
+    <div class="container" style="grid-template-columns: 1fr; text-align: center;">
+      <div class="content">
+        <img class="hero-logo" src="images/logo.svg" alt="Kazeta logo" width="800" height="260" />
+        <p style="margin-left:20%; margin-right:20%">
+          An operating system that brings the console gaming experience of the '90s to modern PC hardware and games: insert cart, power on, play.
+        </p>
+        <a href="#learn-more" class="cta-button">Explore Kazeta</a>
+      </div>
+    </div>
+    <div class="scroll-indicator" aria-hidden="true">↓</div>
+  </section>
 
-    <section class="section" id="learn-more">
-        <div class="container">
-            <div class="content">
-                <h2>Pure Gaming</h2>
-                <p>Insert a game cart, press power, and you're gaming instantly. Relive that nostalgic golden age where nothing stood between you and the games you love.</p>
-                <ul class="feature-list">
-<li>Zero setup</li>
-<li>Direct to gameplay</li>
-<li>Maximum performance</li>
-<li>Distraction-free gaming</li>
-<li>Classic '90s console experience</li>
-                </ul>
-            </div>
-            <div class="image-placeholder">
-                <img src="images/console.webp">
-            </div>
-        </div>
-    </section>
+  <section class="section" id="learn-more">
+    <div class="container">
+      <div class="content">
+        <h2>Pure Gaming</h2>
+        <p>Insert a game cart, press power, and you're gaming instantly. Relive that nostalgic golden age where nothing stood between you and the games you love.</p>
+        <ul class="feature-list">
+          <li>Zero setup</li>
+          <li>Direct to gameplay</li>
+          <li>Maximum performance</li>
+          <li>Distraction-free gaming</li>
+          <li>Classic '90s console experience</li>
+        </ul>
+      </div>
+      <div class="image-placeholder">
+        <img
+          src="images/console.webp"
+          alt="Kazeta console-style interface on a TV"
+          loading="lazy" decoding="async" width="1200" height="800"
+        />
+      </div>
+    </div>
+  </section>
 
-    <section class="section reverse">
-        <div class="container">
-            <div class="content">
-                <h2>Create Collect Play</h2>
-                <p>Transform your digital library into something tangible and permanent. Create physical game carts from your DRM-free titles and build a collection that you can play forever.</p>
-                <ul class="feature-list">
-                    <li>Turn any DRM-free game into a physical cart</li>
-                    <li>Use SD cards or other external media as carts</li>
-                    <li>Play without internet, accounts, or restrictions</li>
-                    <li>Preserve your games as permanent, playable artifacts</li>
-                </ul>
-            </div>
-	        <div class="image-placeholder">
-                <img src="images/create.webp">
-            </div>
-        </div>
-    </section>
+  <section class="section reverse">
+    <div class="container">
+      <div class="content">
+        <h2>Create Collect Play</h2>
+        <p>Transform your digital library into something tangible and permanent. Create physical game carts from your DRM-free titles and build a collection that you can play forever.</p>
+        <ul class="feature-list">
+          <li>Turn any DRM-free game into a physical cart</li>
+          <li>Use SD cards or other external media as carts</li>
+          <li>Play without internet, accounts, or restrictions</li>
+          <li>Preserve your games as permanent, playable artifacts</li>
+        </ul>
+      </div>
+      <div class="image-placeholder">
+        <img
+          src="images/create.webp"
+          alt="Create and play physical game carts"
+          loading="lazy" decoding="async" width="1200" height="800"
+        />
+      </div>
+    </div>
+  </section>
 
-    <section class="section">
-        <div class="container">
-            <div class="content">
-                <h2>Gaming Tranquility</h2>
-                <p>Say goodbye to the complexities of modern gaming and just play.</p>
-                <ul class="feature-list">
-                    <li>No DRM</li>
-                    <li>No online</li>
-                    <li>No servers</li>
-                    <li>No updates</li>
-                    <li>No accounts</li>
-                    <li>No launchers</li>
-                    <li>No subscriptions</li>
-                    <li>No microtransactions</li>
-                </ul>
-            </div>
-            <div class="image-placeholder">
-                <img src="images/zen.webp">
-            </div>
-        </div>
-    </section>
+  <section class="section">
+    <div class="container">
+      <div class="content">
+        <h2>Gaming Tranquility</h2>
+        <p>Say goodbye to the complexities of modern gaming and just play.</p>
+        <ul class="feature-list">
+          <li>No DRM</li>
+          <li>No online</li>
+          <li>No servers</li>
+          <li>No updates</li>
+          <li>No accounts</li>
+          <li>No launchers</li>
+          <li>No subscriptions</li>
+          <li>No microtransactions</li>
+        </ul>
+      </div>
+      <div class="image-placeholder">
+        <img
+          src="images/zen.webp"
+          alt="A calm, console-style gaming setup"
+          loading="lazy" decoding="async" width="1200" height="800"
+        />
+      </div>
+    </div>
+  </section>
 
-    <section class="section reverse">
-        <div class="container">
-            <div class="content">
-                <h2>Save Management</h2>
-                <p>Save data is captured automatically, so you never lose progress. When no cart is inserted, boot into a retro console inspired BIOS menu to manage your saves.</p>
-                <ul class="feature-list">
-                    <li>Retro-style BIOS screen</li>
-                    <li>Automatic save capture</li>
-                    <li>Playtime tracking</li>
-                    <li>View and delete saves</li>
-                    <li>Backup saves to external media</li>
-                </ul>
-            </div>
-            <div class="image-placeholder">
-                <img src="images/bios.png">
-            </div>
-        </div>
-    </section>
+  <section class="section reverse">
+    <div class="container">
+      <div class="content">
+        <h2>Save Management</h2>
+        <p>Save data is captured automatically, so you never lose progress. When no cart is inserted, boot into a retro console inspired BIOS menu to manage your saves.</p>
+        <ul class="feature-list">
+          <li>Retro-style BIOS screen</li>
+          <li>Automatic save capture</li>
+          <li>Playtime tracking</li>
+          <li>View and delete saves</li>
+          <li>Backup saves to external media</li>
+        </ul>
+      </div>
+      <div class="image-placeholder">
+        <img
+          src="images/bios.png"
+          alt="Retro-style BIOS menu for save management"
+          loading="lazy" decoding="async" width="1200" height="800"
+        />
+      </div>
+    </div>
+  </section>
 
-    <section class="section">
-        <div class="container">
-            <div class="content">
-                <h2>Play It All</h2>
-                <p>Play almost any DRM-free game from platforms past or present.</p>
-                <ul class="feature-list">
-                    <li>AAA and indie games</li>
-                    <li>Modern hits and old classics</li>
-                    <li>GOG and itch.io games</li>
-                    <li>Linux and Windows games</li>
-                    <li>Classic console games with emulators</li>
-                </ul>
-            </div>
-            <div class="image-placeholder">
-                <img src="images/all.webp">
-            </div>
-        </div>
-    </section>
+  <section class="section">
+    <div class="container">
+      <div class="content">
+        <h2>Play It All</h2>
+        <p>Play almost any DRM-free game from platforms past or present.</p>
+        <ul class="feature-list">
+          <li>AAA and indie games</li>
+          <li>Modern hits and old classics</li>
+          <li>GOG and itch.io games</li>
+          <li>Linux and Windows games</li>
+          <li>Classic console games with emulators</li>
+        </ul>
+      </div>
+      <div class="image-placeholder">
+        <img
+          src="images/all.webp"
+          alt="Collage of modern and retro game visuals"
+          loading="lazy" decoding="async" width="1200" height="800"
+        />
+      </div>
+    </div>
+  </section>
 
-    <section class="section reverse">
-        <div class="container">
-            <div class="content">
-                <h2>Gaming For Everyone</h2>
-                <p>Bring back the family-friendly simplicity of gaming's distant past. Perfect for kids, parents, and grandparents who just want to play.</p>
-                <ul class="feature-list">
-                    <li>For kids who need a safe, offline environment</li>
-                    <li>For older family members intimidated by modern gaming</li>
-                    <li>For anyone craving gaming's simpler days</li>
-                </ul>
-            </div>
-            <div class="image-placeholder">
-                <img src="images/everyone.webp">
-            </div>
-        </div>
-    </section>
+  <section class="section reverse">
+    <div class="container">
+      <div class="content">
+        <h2>Gaming For Everyone</h2>
+        <p>Bring back the family-friendly simplicity of gaming's distant past. Perfect for kids, parents, and grandparents who just want to play.</p>
+        <ul class="feature-list">
+          <li>For kids who need a safe, offline environment</li>
+          <li>For older family members intimidated by modern gaming</li>
+          <li>For anyone craving gaming's simpler days</li>
+        </ul>
+      </div>
+      <div class="image-placeholder">
+        <img
+          src="images/everyone.webp"
+          alt="Family enjoying couch co-op gaming"
+          loading="lazy" decoding="async" width="1200" height="800"
+        />
+      </div>
+    </div>
+  </section>
 
-    <section class="section hero" id="download">
-        <div class="container" style="grid-template-columns: 1fr; text-align: center;">
-            <div class="content">
-                <h1 class="glitch" data-text="Ready to game like it's 1995?">Ready to game like it's 1995?</h1>
-                <p style="font-size: 1.3rem;">
-                    Download Kazeta today and rediscover the joy of pure gaming.
-                </p>
-                <a href="https://installer.kazeta.org/kazeta-2025.08.21-x86_64.iso" class="cta-button">Download Now</a>
-            </div>
-        </div>
-    </section>
+  <section class="section hero" id="download">
+    <div class="container" style="grid-template-columns: 1fr; text-align: center;">
+      <div class="content">
+        <h1 class="glitch" data-text="Ready to game like it's 1995?" aria-label="Ready to game like it's 1995?">
+          Ready to game like it's 1995?
+        </h1>
+        <p style="font-size: 1.3rem;">
+          Download Kazeta today and rediscover the joy of pure gaming.
+        </p>
+        <a href="https://installer.kazeta.org/kazeta-2025.08.21-x86_64.iso" class="cta-button">Download Now</a>
+        <p style="margin-top:.5rem;">
+          <small>Build: 2025-08-21 • x86_64 • SHA256: <code id="kazeta-sha256">…</code></small>
+        </p>
+      </div>
+    </div>
+  </section>
 </body>
 </html>
