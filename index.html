@@ -8,30 +8,30 @@
   <!-- Primary SEO -->
   <meta name="description" content="Kazeta is a console-style OS for modern PCs: insert cart, power on, play. Zero setup, no DRM, just games." />
   <meta name="robots" content="index,follow" />
-  <link rel="canonical" href="https://kazeta.org/" />
+  <link rel="canonical" href="https://kazetaos.github.io/" />
 
   <!-- Theming -->
   <meta name="theme-color" content="#0f0f0f" />
 
-  <!-- Open Graph (Discord, Slack, FB, etc.) -->
+  <!-- Open Graph (Discord, Facebook, Slack, etc.) -->
   <meta property="og:site_name" content="Kazeta" />
   <meta property="og:title" content="Kazeta – Just Play" />
-  <meta property="og:description" content="Console gaming energy from the '90s, on modern PC hardware. Insert cart, power on, play." />
+  <meta property="og:description" content="An OS that brings the console gaming experience of the '90s to modern PC hardware and games: insert cart, power on, play." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://kazeta.org/" />
-  <!-- Use an absolute URL for rich previews -->
-  <meta property="og:image" content="https://kazeta.org/images/og-cover.png" />
-  <meta property="og:image:alt" content="Kazeta: console-style OS — logo and hero art" />
+  <meta property="og:url" content="https://kazetaos.github.io/" />
+  <meta property="og:image" content="https://kazetaos.github.io/images/kazeta.webp" />
+  <meta property="og:image:type" content="image/webp" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Kazeta logo with console-style gradient background" />
   <meta property="og:locale" content="en_US" />
 
-  <!-- Twitter Card -->
+  <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Kazeta – Just Play" />
-  <meta name="twitter:description" content="Console gaming energy from the '90s, on modern PC hardware." />
-  <meta name="twitter:image" content="https://kazeta.org/images/og-cover.png" />
-  <meta name="twitter:domain" content="kazeta.org" />
+  <meta name="twitter:description" content="Insert cart, power on, play. Pure gaming, no DRM, no nonsense." />
+  <meta name="twitter:image" content="https://kazetaos.github.io/images/kazeta.webp" />
+  <!-- <meta name="twitter:site" content="@yourhandle" /> -->
 
   <!-- Favicons -->
   <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -42,7 +42,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet" />
 
-  <!-- Optional structured data for richer SEO -->
+  <!-- Structured data (optional) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -51,12 +51,9 @@
     "applicationCategory": "SystemSoftware",
     "operatingSystem": "Linux",
     "description": "Kazeta is a console-style OS for modern PCs: insert cart, power on, play.",
-    "url": "https://kazeta.org/",
-    "image": "https://kazeta.org/images/og-cover.png",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Kazeta Project"
-    }
+    "url": "https://kazetaos.github.io/",
+    "image": "https://kazetaos.github.io/images/kazeta.webp",
+    "publisher": { "@type": "Organization", "name": "Kazeta Project" }
   }
   </script>
 
@@ -70,7 +67,7 @@
       overflow-x: hidden;
       padding-top: 0;
       margin: 0;
-      font-size: 16px; /* Base font size */
+      font-size: 16px;
       background: #0f0f0f;
     }
 
@@ -99,21 +96,19 @@
     @media (min-width: 2200px) { .section { padding: 5rem; } }
     @media (min-width: 2560px) { .section { padding: 6rem; } }
 
-    /* Base Typography Styles - Must come before media queries */
+    /* Typography */
     h1 {
       font-size: 3rem;
       margin-bottom: 1.5rem;
       font-weight: 900;
       line-height: 1.2;
     }
-
     h2 {
       font-size: 2.5rem;
       margin-bottom: 1.5rem;
       font-weight: 800;
       line-height: 1.2;
     }
-
     p {
       font-size: 1.2rem;
       opacity: 0.9;
@@ -228,18 +223,10 @@
     }
 
     /* Responsive CTA button scaling for large screens */
-    @media (min-width: 1400px) {
-      .cta-button { padding: 1.2rem 3.5rem; font-size: 1.3rem !important; }
-    }
-    @media (min-width: 1800px) {
-      .cta-button { padding: 1.4rem 4rem; font-size: 1.4rem !important; }
-    }
-    @media (min-width: 2200px) {
-      .cta-button { padding: 1.6rem 4.5rem; font-size: 1.5rem !important; }
-    }
-    @media (min-width: 2560px) {
-      .cta-button { padding: 1.8rem 5rem; font-size: 1.6rem !important; }
-    }
+    @media (min-width: 1400px) { .cta-button { padding: 1.2rem 3.5rem; font-size: 1.3rem !important; } }
+    @media (min-width: 1800px) { .cta-button { padding: 1.4rem 4rem; font-size: 1.4rem !important; } }
+    @media (min-width: 2200px) { .cta-button { padding: 1.6rem 4.5rem; font-size: 1.5rem !important; } }
+    @media (min-width: 2560px) { .cta-button { padding: 1.8rem 5rem; font-size: 1.6rem !important; } }
 
     .cta-button:hover {
       transform: translateY(-5px);
@@ -307,7 +294,6 @@
       transition: all 0.3s ease;
       filter: none;
       mix-blend-mode: normal;
-      /* Provide a ratio to reduce CLS even before the image loads */
       aspect-ratio: 3 / 2;
     }
 
@@ -392,7 +378,6 @@
       display: flex; justify-content: space-between; align-items: center;
     }
 
-    /* Responsive navbar scaling for large screens */
     @media (min-width: 1400px) { .nav-container { max-width: 1400px; } }
     @media (min-width: 1800px) { .nav-container { max-width: 1600px; } }
     @media (min-width: 2200px) { .nav-container { max-width: 1800px; } }
@@ -407,7 +392,6 @@
       transition: all 0.3s ease; padding: 0.5rem 1rem; border-radius: 6px;
     }
 
-    /* Responsive navbar font scaling for large screens */
     @media (min-width: 1400px) {
       .nav-links a { font-size: 1.1rem !important; padding: 0.6rem 1.2rem; }
       .nav-logo { width: 14rem; }
